@@ -3,7 +3,7 @@ import React from 'react'
 
 const AboutSection = () => {
   return (
-    <section className='py-16 px-5 bg-slate-400/25'>
+    <section className='py-16 px-5 lg:px-12 bg-slate-400/25'>
       <div className='w-full xl:max-w-[1196px] m-auto'>
         <h1 className='text-2xl md:text-4xl font-bold text-center'><span className='text-[#1ECA8C]'>Help</span><span className='text-orange-400'>Meet</span></h1>
         <div className='md:flex py-5 gap-5'>
@@ -40,7 +40,7 @@ const AboutSection = () => {
                 </div>
               </div>
               <p className='py-2'>
-                Whether it's contributing towards school fees, sponsoring innovative projects, or providing essential materials, we strive to create opportunities for students to thrive and reach their full potential.
+                Whether it&apos;s contributing towards school fees, sponsoring innovative projects, or providing essential materials, we strive to create opportunities for students to thrive and reach their full potential.
               </p>
               <p className='py-2'>
                 Driven by a deep sense of empathy and a desire to give back to our community, we are committed to transparency, integrity, and accountability in everything we do. Every donation, no matter how big or small, makes a significant impact in empowering students and shaping their future.

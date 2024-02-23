@@ -57,7 +57,7 @@ const Hero = () => {
         <div className='md:flex pt-12 px-3 gap-5'>
           <div className='text-[#E8FAF3] md:w-1/2'>
             <div className='flex'>
-              <h5 className='p-2 rounded-md bg-[#273A34] text-xs md:text-sm'>We're here to support you excel!</h5>
+              <h5 className='p-2 rounded-md bg-[#273A34] text-xs md:text-sm'>We&apos;re here to support you excel!</h5>
             </div>
             <h1 className='capitalize text-2xl sm:text-3xl md:text-2xl lg:text-4xl xl:text-5xl font-semibold !leading-[1.5] pt-3'>Empowering lives through compasionate support</h1>
             <h2 className='text-sm lg:text-lg text-[#EDEDED] leading-7 my-3 lg:w-[85%]'>Join us in creating a future where every life is valued by supporting our education, healthcare, and livelihood initiatives</h2>

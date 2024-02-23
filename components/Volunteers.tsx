@@ -58,8 +58,8 @@ const Volunteers = () => {
         our Progress in numbers</p>
         <button className='bg-[#1ECA8C] font-bold rounded-md p-3 px-7 text-lg my-4 text-white hover:shadow-lg hover:shadow-orange-400'>Become Volunteer</button>
         <div ref={sliderRef} className='keen-slider gap-5 py-3 text-gray-700'>
-          {volunteerList.map((vol) =>
-            <div className='keen-slider__slide'>
+          {volunteerList.map((vol, index) =>
+            <div className='keen-slider__slide' key={index}>
               <div className='w-full h-44 rounded-full bg-gray-300'></div>
               <p className='text-center font-bold text-base py-5 uppercase'>{vol.name}</p>
             </div>
