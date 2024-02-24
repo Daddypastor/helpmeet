@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import React from 'react'
-import { useKeenSlider } from "keen-slider/react"
+// import { useKeenSlider } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
 import { campaignList } from '../data';
 import Link from 'next/link'

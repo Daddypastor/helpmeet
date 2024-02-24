@@ -4,7 +4,7 @@ export const campaignList = [
     title: 'Help Students With their tuition fees',
     desc: 'Your Help is Needed Now! We are at a critical juncture where your assistance can truly change lives. The need is pressing, the impact profound. Your donations are not just a lifeline; they are a beacon of hope for those striving to fulfill their educational aspirations. With your support, we can turn dreams into reality, breaking down barriers and forging paths to success. Please, join us in this vital mission. Your contribution today will shape a brighter future for someone in need. Thank you for your compassion and generosity.',
     goalPrice: 5000000,
-    raisedPrice: 100000
+    raisedPrice: 10000
   },
     
 ]

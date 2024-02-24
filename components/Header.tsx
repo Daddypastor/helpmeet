@@ -29,7 +29,7 @@ const Header = () => {
             <ul className='flex flex-col items-center lg:flex-row lg:gap-x-8 gap-y-10 capitalize font-semibold text-sm cursor-pointer'>
               {navLinks.map((nav, index) => 
               <li className={`${nav.url == path? 'text-[#1ECA8C] shadow-lg shadow-orange-400' :''} hover:text-[#1ECA8C] hover:shadow-lg hover:shadow-orange-400`} key={index}>
-                <Link href={nav.url}>{nav.name}</Link>
+                <Link href={nav.url} onClick={() => setMenu(false)}>{nav.name}</Link>
               </li>
               )}
               <Link href='/donate'>
