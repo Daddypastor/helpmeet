@@ -13,7 +13,7 @@ const Header = () => {
   console.log(path);
   return (
     <header className='bg-[#16231F] border-b-2 w-full sticky top-0 z-30'>
-      <div className='p-5 md:px-12 md:py-7 xl:max-w-[1196px] m-auto'>
+      <div className='p-5 md:px-12 md:py-5 xl:max-w-[1196px] m-auto'>
         <div className='flex justify-between items-center'>
           <Link href='/'>
             <div className='text-xl font-bold px-2'>

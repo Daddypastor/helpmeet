@@ -59,18 +59,18 @@ const Hero = () => {
             <div className='flex'>
               <h5 className='p-2 rounded-md bg-[#273A34] text-xs md:text-sm'>We&apos;re here to support you excel!</h5>
             </div>
-            <h1 className='capitalize text-2xl sm:text-3xl md:text-2xl lg:text-4xl xl:text-5xl font-semibold !leading-[1.5] pt-3'>Empowering lives through compasionate support</h1>
-            <h2 className='text-sm lg:text-lg text-[#EDEDED] leading-7 my-3 lg:w-[85%]'>Join us in creating a future where every life is valued by supporting our education, healthcare, and livelihood initiatives</h2>
+            <h1 className='capitalize text-2xl sm:text-3xl md:text-2xl lg:text-4xl xl:text-5xl font-semibold !leading-[1.2] pt-3'>Empowering lives through compasionate support</h1>
+            <h2 className='text-sm lg:text-base text-[#EDEDED] leading-7 my-3 lg:w-[85%]'>Transform a student&apos;s life with your donation today! Every contribution helps cover fees, fund projects, and provide materials. Be the difference.</h2>
             <Link href='/donate'>
               <button className='bg-[#1ECA8C] font-bold rounded-md p-3 px-7 text-lg my-4 text-white hover:shadow-lg hover:shadow-orange-400'>Donate Now</button>
             </Link>
           </div>
           <div className='flex gap-2 my-3 md:w-1/2'>
             <div className='w-1/2 space-y-2'>
-              <div className='w-full h-40 md:h-1/2'>
+              <div className='w-full h-24 md:h-1/2'>
                 <Image src='/heroImgs/1.jpg' width={200} height={40} alt='' className='h-full w-full rounded-lg' />
               </div>
-              <div className='w-full h-40 md:h-1/2'>
+              <div className='w-full h-24 md:h-1/2'>
                 <Image src='/heroImgs/2.jpg' width={200} height={40} alt='' className='h-full w-full rounded-lg' />
               </div>
             </div>

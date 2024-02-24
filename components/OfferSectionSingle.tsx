@@ -6,7 +6,7 @@ const OfferSectionSingle = ({...props}) => {
     <div className='bg-white shadow-md border border-orange-400 w-full rounded-xl p-5'>
       <h2 className='font-semibold text-xl'>{props.heading}</h2>
       <p className='h-0.5 w-24 bg-[#1ECA8C]'></p>
-      <p className='my-5 text-md font-light leading-8 md:text-lg'>{props.details}</p>
+      <p className='my-5 text-sm font-light leading-7'>{props.details}</p>
       <div className='flex gap-2 items-center'>
         <span className='text-sm font-semibold text-[#1ECA8C]'>Learn more</span>
         <MoveRight className='text-orange-400 rounded-full shadow-lg p-1'/>

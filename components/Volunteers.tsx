@@ -56,12 +56,12 @@ const Volunteers = () => {
         <h3 className='text-xl font-bold text-gray-600 md:text-2xl'>Meet Our Volunteers</h3>
         <p className='text-gray-500 text-sm py-5 md:text-lg'>Join us to help others. We try our best to help helpless people, See
         our Progress in numbers</p>
-        <button className='bg-[#1ECA8C] font-bold rounded-md p-3 px-7 text-lg my-4 text-white hover:shadow-lg hover:shadow-orange-400'>Become Volunteer</button>
-        <div ref={sliderRef} className='keen-slider gap-5 py-3 text-gray-700'>
+        <button className='bg-[#1ECA8C] font-bold rounded-md p-3 px-5 text-lg my-4 text-white hover:shadow-lg hover:shadow-orange-400'>Become Volunteer</button>
+        <div ref={sliderRef} className='keen-slider gap-2 py-3 text-gray-700'>
           {volunteerList.map((vol, index) =>
             <div className='keen-slider__slide' key={index}>
-              <div className='w-full h-44 rounded-full bg-gray-300'></div>
-              <p className='text-center font-bold text-base py-5 uppercase'>{vol.name}</p>
+              <div className='w-full h-44 md:w-52 md:h-52 rounded-full bg-gray-300 overflow-hidden'></div>
+              <p className='font-bold text-xs py-2 uppercase px-8'>{vol.name}</p>
             </div>
           )}
         </div>

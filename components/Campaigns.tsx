@@ -4,6 +4,7 @@ import React from 'react'
 import { useKeenSlider } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
 import { campaignList } from '../data';
+import Link from 'next/link'
 
 
 const Campaigns = () => {
@@ -57,7 +58,7 @@ const Campaigns = () => {
         <h5 className="text-orange-400 text-center font-normal text-xs pt-10 pb-3 uppercase">Help Others</h5>
         <h3 className="text-xl font-bold text-center text-gray-600">Our Campaigns</h3>
         <p className="text-gray-500 text-sm text-center py-5 px-3">Join us to help others. We try our best to help helpless people. See our Progress in numbers.</p>
-        <div className="keen-slider flex text-gray-600 justify-center">
+        <div className="keen-slider flex text-gray-600 justify-center px-3">
           {campaignList.map((campaign, index) => (
             <div key={index} className="lg:w-1/3 md:w-1/2">
               <div className="bg-white rounded-lg p-3 border border-orange-400">
@@ -66,18 +67,20 @@ const Campaigns = () => {
                 </div>
                 <div className="p-2">
                   <h2 className="font-bold py-2 text-xl capitalize">{campaign.title}</h2>
-                  <p className="text-sm">{campaign.desc}</p>
+                  <p className="text-sm font-semibold">{campaign.desc}</p>
                   <div className="flex justify-end pt-2">
                     <span className="text-sm text-orange-400 font-semibold">{(campaign.raisedPrice / campaign.goalPrice) * 100}%</span>
                   </div>
-                  <div className="h-2 w-full bg-[#1eca8c29] rounded-md my-5">
+                  <div className="h-2 w-full bg-[#1eca8c29] rounded-md my-3">
                     <div style={{ width: `${(campaign.raisedPrice / campaign.goalPrice) * 100}%` }} className="h-2 bg-[#1ECA8C] rounded-md"></div>
                   </div>
                   <div className="flex justify-between py-3 font-semibold text-sm">
-                    <span className="text-[#1ECA8C]">Goal: N {campaign.goalPrice}</span>
-                    <span className="text-orange-400">Raised: N {campaign.raisedPrice}</span>
+                    <span className="text-[#1ECA8C]">Goal: N {(campaign.goalPrice).toLocaleString()}</span>
+                    <span className="text-orange-400">Raised: N {(campaign.raisedPrice).toLocaleString()}</span>
                   </div>
-                  <button className="bg-[#1ECA8C] font-bold rounded-md p-3 w-full shadow-sm shadow-orange-400 text-lg my-4 text-white hover:shadow-lg hover:shadow-orange-400">Donate Now</button>
+                  <Link href='/donate'>
+                    <button className="bg-[#1ECA8C] font-bold rounded-md p-3 w-full shadow-sm shadow-orange-400 text-lg my-4 text-white hover:shadow-lg hover:shadow-orange-400">Donate Now</button>
+                  </Link>
                 </div>
               </div>
             </div>
