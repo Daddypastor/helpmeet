@@ -1,7 +1,7 @@
 'use client'
 import React, { FormEvent, useState } from 'react';
 import { PaystackButton } from 'react-paystack';
-import { X } from 'lucide-react';
+import { CheckCircle, X } from 'lucide-react';
 import Image from 'next/image';
 import { campaignList } from '../../data';
 
@@ -50,9 +50,10 @@ const DonationSection = () => {
   const [amount, setAmount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [donationSuccess, setDonationSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const publicKey = 'pk_test_2b74aab00574728a1603061034868a0e8aac3d72';
-  const email = 'emmaexcellent030@gmail.com';
+  const publicKey = 'pk_live_b01a5bb44875ca3408b33ddea487b5542bde749f';
+  const email = 'helpmeet52@gmail.com';
 
   const handleCampaignChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCampaign(event.target.value);
@@ -80,14 +81,19 @@ const DonationSection = () => {
       }, 1500);
     }
   };
+  
+  const PaymentSuccess = () => {
+    setDonationSuccess(true)
+    setShowPopup(false)
+  }
 
   const PaymentProps = {
     email,
     amount,
     publicKey,
     text: "Confirm Payment",
-    onSuccess: () => alert("Thanks for doing business with us! Come back soon!!"),
-    onClose: () => alert("Wait! You need this oil, don't go!!!!"),
+    onSuccess: PaymentSuccess,
+    onClose: () => alert("Wait! Your Donation is neeeded, don't go!!!!"),
   };
 
   return (
@@ -137,14 +143,14 @@ const DonationSection = () => {
         
       </section>
       {showPopup && (  
-      <section className='bg-[#9c9999b0] w-full min-h-svh fixed top-0 z-10 p-5'>        
+      <section className='bg-[#5f5d5db0] w-full min-h-svh fixed top-0 z-10 p-5'>        
         <div className="flex justify-center items-center min-h-svh text-gray-600">
           <div className="bg-white p-10 border rounded-xl text-center relative">
             <X className='absolute top-0 right-2 pt-2' onClick={()=>setShowPopup(false)}/>
             <h2 className='font-semibold text-md'>Confirm Donation Details:</h2>
             <div className='py-5'>
               <p className='text-center text-xl leading-8'>
-                You are about to donate <br/> <span className='text-orange-400 font-semibold'>&#8358; {inputAmount}</span> <br/> to <br/><span className='text-[#1ECA8C] italic font-semibold'>{campaign}.</span>
+                You are about to donate <br/> <span className='text-orange-400 font-semibold'>&#8358; {`${(parseInt(inputAmount)).toLocaleString()}.00`}</span> <br/> to <br/><span className='text-[#1ECA8C] italic font-semibold'>{campaign}.</span>
               </p>
             </div>
             <div>
@@ -154,6 +160,25 @@ const DonationSection = () => {
         </div>
       </section>             
       )}
+
+    {donationSuccess && (  
+      <section className='bg-[#5f5d5db0] w-full min-h-svh fixed top-0 z-10 p-5'>        
+        <div className="flex justify-center items-center min-h-svh text-gray-600">
+          <div className="bg-white p-10 border rounded-xl text-center relative">
+            <X className='absolute top-0 right-2 pt-2' onClick={()=>setDonationSuccess(false)}/>
+            <div className='flex justify-center flex-col items-center'>
+              <CheckCircle width={50} height={50} className='font-semibold text-md text-[#1ECA8C]'/>
+              <div className='py-5'>
+                <p className='text-center text-xl leading-8 font-semibold'>
+                  <span className=''>&#8358; {(1000000).toLocaleString()}</span> <br />
+                  <span className=' uppercase text-xs'>Your donation was successful!</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>  
+    )}
       
     </>
   );
