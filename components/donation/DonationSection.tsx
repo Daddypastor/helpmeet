@@ -121,7 +121,7 @@ const DonationSection = () => {
                   <label htmlFor="DonAmt" className='px-2'>Donation Amount</label>
                   <div className='flex gap-2 flex-wrap justify-center items-center bg-[#E8FAF3] p-5 rounded-xl'>
                     {defaultDonationAmt.map((amt, index) =>
-                      <input className={`${amt.setAmt==inputAmount?'bg-[#1ECA8C] text-white':'bg-white  text-gray-700'} hover:bg-[#1ECA8C] hover:text-white font-semibold rounded-md p-1 px-3 text-lg`} onClick={()=>setInputAmount(amt.setAmt)} value={amt.amt} type='button' key={index}/>
+                      <input className={`${amt.setAmt==inputAmount?'bg-[#1ECA8C] text-white':'bg-white  text-gray-700'} hover:bg-[#1ECA8C] hover:text-white rounded-md p-1 px-3 text-lg`} onClick={()=>setInputAmount(amt.setAmt)} value={amt.amt} type='button' key={index}/>
                     )}
                   </div><br />
                   <div className='flex items-center bg-[#1ECA8C] rounded-lg'>

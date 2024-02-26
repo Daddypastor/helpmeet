@@ -1,7 +1,6 @@
 'use client'
 import { navLinks } from '@/data'
 import { Menu, X } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useState } from 'react'
@@ -10,7 +9,6 @@ import React, { useState } from 'react'
 const Header = () => {
   const [ menu, setMenu ] = useState(false);
   const path = usePathname();
-  console.log(path);
   return (
     <header className='bg-[#16231F] border-b-2 w-full sticky top-0 z-30'>
       <div className='p-5 md:px-12 md:py-5 xl:max-w-[1196px] m-auto'>

@@ -61,7 +61,7 @@ const Volunteers = () => {
           {volunteerList && volunteerList.map((vol, index) =>
             <div className='keen-slider__slide' key={index}>
               <div className='w-full h-44 md:w-52 md:h-52 rounded-full bg-gray-300 overflow-hidden'></div>
-              <p className='font-bold text-xs py-2 uppercase  text-center'>{vol.name}</p>
+              <p className='font-bold text-xs py-2 uppercase text-center lg:text-left lg:px-8'>{vol.name}</p>
             </div>
           
           )}
