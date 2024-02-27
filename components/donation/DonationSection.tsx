@@ -4,6 +4,7 @@ import { PaystackButton } from 'react-paystack';
 import { CheckCircle, X } from 'lucide-react';
 import Image from 'next/image';
 import { campaignList } from '../../data';
+import CampaignSelect from '../CampaignSelect';
 
 export const defaultDonationAmt = [
   {
@@ -110,12 +111,7 @@ const DonationSection = () => {
               <form action="" className='py-5' onSubmit={onSubmit}>
                 <div className='flex flex-col gap-2 py-3'>
                   <label htmlFor="campaignInput" className='px-2'>Select Campaign</label>
-                  <select name="campaign" id="campaignInput" className='w-full border border-orange-400 rounded-lg p-3  text-gray-700' onChange={handleCampaignChange}>
-                    <option value="">-------</option>
-                    {campaignList.map((campaign, index) =>
-                      <option value={campaign.title} key={index} className='capitalize'>{campaign.title}</option>
-                    )}
-                  </select>
+                  <CampaignSelect Fn={handleCampaignChange}/>
                 </div>
                 <div className='flex flex-col gap-2 py-3'>
                   <label htmlFor="DonAmt" className='px-2'>Donation Amount</label>
