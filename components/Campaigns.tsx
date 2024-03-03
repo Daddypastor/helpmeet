@@ -3,11 +3,15 @@ import Image from 'next/image'
 import React from 'react'
 // import { useKeenSlider } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
-import { campaignList } from '../data';
 import Link from 'next/link'
+import { Campaign } from '@/lib/definitions';
+
+interface Props {
+  campaignList: Campaign[];
+}
 
 
-const Campaigns = () => {
+const Campaigns: React.FC<Props> = ({ campaignList }) => {
   // const [sliderRef] = useKeenSlider<HTMLDivElement>(    
   //   {
   //     loop: true,
@@ -69,14 +73,14 @@ const Campaigns = () => {
                   <h2 className="font-bold py-2 text-xl capitalize">{campaign.title}</h2>
                   <p className="text-sm font-semibold">{campaign.desc}</p>
                   <div className="flex justify-end pt-2">
-                    <span className="text-sm text-orange-400 font-semibold">{(campaign.raisedPrice / campaign.goalPrice) * 100}%</span>
+                    <span className="text-sm text-orange-400 font-semibold">{(campaign.raisedprice / campaign.goalprice) * 100}%</span>
                   </div>
                   <div className="h-2 w-full bg-[#1eca8c29] rounded-md my-3">
-                    <div style={{ width: `${(campaign.raisedPrice / campaign.goalPrice) * 100}%` }} className="h-2 bg-[#1ECA8C] rounded-md"></div>
+                    <div style={{ width: `${(campaign.raisedprice / campaign.goalprice) * 100}%` }} className="h-2 bg-[#1ECA8C] rounded-md"></div>
                   </div>
                   <div className="flex justify-between py-3 font-semibold text-sm">
-                    <span className="text-[#1ECA8C]">Goal: N {(campaign.goalPrice).toLocaleString()}</span>
-                    <span className="text-orange-400">Raised: N {(campaign.raisedPrice).toLocaleString()}</span>
+                    <span className="text-[#1ECA8C]">Goal: N {(campaign.goalprice).toLocaleString()}</span>
+                    <span className="text-orange-400">Raised: N {(campaign.raisedprice).toLocaleString()}</span>
                   </div>
                   <Link href='/donate'>
                     <button className="bg-[#1ECA8C] font-bold rounded-md p-3 w-full shadow-sm shadow-orange-400 text-lg my-4 text-white hover:shadow-lg hover:shadow-orange-400">Donate Now</button>

@@ -68,15 +68,15 @@ const Hero = () => {
           <div className='flex gap-2 my-3 md:w-1/2'>
             <div className='w-1/2 space-y-2'>
               <div className='w-full h-24 md:h-1/2'>
-                <Image src='/heroImgs/1.jpg' width={200} height={40} alt='' className='h-full w-full rounded-lg' />
+                <Image src='/heroImgs/1.jpg' width={200} height={40} alt='' className='h-full w-full rounded-lg object-cover' />
               </div>
               <div className='w-full h-24 md:h-1/2'>
-                <Image src='/heroImgs/2.jpg' width={200} height={40} alt='' className='h-full w-full rounded-lg' />
+                <Image src='/heroImgs/2.jpg' width={200} height={40} alt='' className='h-full w-full rounded-lg object-cover' />
               </div>
             </div>
             <div className='w-1/2'>
               <div className='w-full h-full bg-gray-300 rounded-lg'>
-              <Image src='/heroImgs/4.jpg' width={400} height={40} alt='' className='h-full rounded-lg' />
+              <Image src='/heroImgs/4.jpg' width={600} height={40} alt='' className='h-full rounded-lg object-cover' />
               </div>
             </div>
           </div>

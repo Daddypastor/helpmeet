@@ -3,10 +3,9 @@ import React, { FormEvent, useState } from 'react';
 import { PaystackButton } from 'react-paystack';
 import { CheckCircle, X } from 'lucide-react';
 import Image from 'next/image';
-import { campaignList } from '../../data';
-import CampaignSelect from '../CampaignSelect';
+import { Campaign } from '@/lib/definitions';
 
-export const defaultDonationAmt = [
+const defaultDonationAmt = [
   {
     amt: '1k',
     setAmt: '1000.00'
@@ -45,7 +44,11 @@ export const defaultDonationAmt = [
   },
 ];
 
-const DonationSection = () => {
+interface Props{
+  campaignList: Campaign[];
+}
+
+const DonationSection = ({campaignList}: Props) => {
   const [campaign, setCampaign] = useState('');
   const [inputAmount, setInputAmount] = useState('');
   const [amount, setAmount] = useState(0);
@@ -53,7 +56,7 @@ const DonationSection = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [donationSuccess, setDonationSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const publicKey = 'pk_live_b01a5bb44875ca3408b33ddea487b5542bde749f';
+  const publicKey = 'pk_test_2b74aab00574728a1603061034868a0e8aac3d72';
   const email = 'helpmeet52@gmail.com';
 
   const handleCampaignChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -66,24 +69,64 @@ const DonationSection = () => {
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setAmount(parseFloat(inputAmount) * 100);
-    if (!campaign && !inputAmount.trim()) {
-      setErrorMessage('Please select campaign and enter donation amount!');
-    } else if (!campaign) {
+  
+    // Trim input amount
+    const trimmedInputAmount = inputAmount.trim();
+  
+    // Check if campaign and input amount are provided
+    if (!campaign) {
       setErrorMessage('Please select a campaign!');
-    } else if (!inputAmount.trim()) {
-      setErrorMessage('Please enter a donation amount!');
-    } else {
-      setLoading(true);
-      setTimeout(() => {
-        setShowPopup(true);
-        console.log('Form submitted with data:', { email, amount });
-        setLoading(false);
-      }, 1500);
+      return;
     }
+  
+    if (!trimmedInputAmount) {
+      setErrorMessage('Please enter a donation amount!');
+      return;
+    }
+  
+    // Parse input amount to float
+    const parsedInputAmount = parseFloat(trimmedInputAmount);
+  
+    // Check if parsed input amount is valid
+    if (isNaN(parsedInputAmount) || parsedInputAmount <= 0) {
+      setErrorMessage('Please enter a valid donation amount!');
+      return;
+    }
+  
+    // Set loading state
+    setLoading(true);
+  
+    // Find selected campaign
+    const selectedCampaign = campaignList.find(campaignItem => campaignItem._id === campaign);
+  
+    // Check if selected campaign exists
+    if (!selectedCampaign) {
+      setErrorMessage('Invalid campaign selected!');
+      setLoading(false);
+      return;
+    }
+  
+    // Construct data object with campaign ID, title, email, and amount
+    const formData = {
+      campaign: {
+        id: campaign,
+        title: selectedCampaign.title
+      },
+      email,
+      amount: parsedInputAmount * 100 // Convert to kobo (lowest currency denomination in Nigeria)
+    };
+  
+    // Simulate asynchronous operation
+    setTimeout(() => {
+      setShowPopup(true);
+      console.log('Form submitted with data:', formData);
+      setLoading(false);
+    }, 1500);
   };
   
+  
   const PaymentSuccess = () => {
+
     setDonationSuccess(true)
     setShowPopup(false)
   }
@@ -111,7 +154,12 @@ const DonationSection = () => {
               <form action="" className='py-5' onSubmit={onSubmit}>
                 <div className='flex flex-col gap-2 py-3'>
                   <label htmlFor="campaignInput" className='px-2'>Select Campaign</label>
-                  <CampaignSelect Fn={handleCampaignChange}/>
+                  <select name="campaign" id="campaignInput" className='w-full border border-orange-400 rounded-lg p-3  text-gray-700' onChange={handleCampaignChange}>
+                    <option value="">-------</option>
+                    {campaignList.map((campaign) =>
+                      <option value={campaign._id} key={campaign._id} className='capitalize'>{campaign.title}</option>
+                    )}
+                  </select>
                 </div>
                 <div className='flex flex-col gap-2 py-3'>
                   <label htmlFor="DonAmt" className='px-2'>Donation Amount</label>
