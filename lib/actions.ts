@@ -1,3 +1,5 @@
+"use server"
+
 import { client } from "./mongodb";
 import { ObjectId } from "mongodb";
 
@@ -27,11 +29,11 @@ export async function updateCampaign(_id: string, newRaisedPrice: number){
   try {
     await client.connect();
 
-    // Assuming 'raisedPrice' is the field to be updated
     await client.db("helpmeet").collection('campaigns').findOneAndUpdate(
       { _id: new ObjectId(_id) }, // Filter for the document to update
-      { $inc: { raisedPrice: newRaisedPrice } } // Update operation
+      { $inc: { raisedprice: newRaisedPrice } } // Update operation
     );
+    console.log("updated!")
 
   } catch(error: any ) {
     console.error(`Error updating campaign: ${error.message}`);

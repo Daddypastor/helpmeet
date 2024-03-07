@@ -1,5 +1,5 @@
-import DonationSection from '@/components/donation/DonationSection'
 import PageCrumb from '@/components/PageCrumb'
+import DonationSection from '@/components/donation/DonationSection'
 import { getAllCampaigns } from '@/lib/actions'
 import React from 'react'
 
@@ -8,7 +8,7 @@ const page = async () => {
   return (
     <main className='relative'>
       <PageCrumb name='Donate Now'/>
-      <DonationSection campaignList={campaigns}/>   
+      <DonationSection campaignList = {campaigns}/>  
     </main>
   )
 }

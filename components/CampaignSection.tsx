@@ -13,7 +13,7 @@ const CampaignSection: React.FC<Props> = ({ campaignList }) => {
     <section className="bg-[#E8FAF3]" id='campaign'>
       <div className="w-full xl:max-w-[1196px] mx-auto md:px-12 py-7">
         <p className="text-gray-500 text-sm text-center py-5 px-3">Join us to help others. We try our best to help helpless people. See our Progress in numbers.</p>
-        <div className="flex flex-col gap-5 text-gray-600 justify-center px-3 ">
+        <div className="flex flex-col gap-5 text-gray-600 justify-center px-5">
           <Suspense fallback={'Loading ...'}>
             {campaignList.map((campaign) => (
               <div className="md:flex items-center gap-5 bg-white rounded-lg p-3 border border-orange-400" key={campaign._id}>

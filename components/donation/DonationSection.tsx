@@ -1,9 +1,11 @@
 'use client'
 import React, { FormEvent, useState } from 'react';
-import { PaystackButton } from 'react-paystack';
-import { CheckCircle, X } from 'lucide-react';
+import { PaystackButton } from 'react-paystack'
+import { CheckCircle, Loader, Loader2, X } from 'lucide-react';
 import Image from 'next/image';
 import { Campaign } from '@/lib/definitions';
+import { updateCampaign } from '@/lib/actions';
+import Link from 'next/link';
 
 const defaultDonationAmt = [
   {
@@ -49,18 +51,18 @@ interface Props{
 }
 
 const DonationSection = ({campaignList}: Props) => {
-  const [campaign, setCampaign] = useState('');
+  const [campaignID, setCampaignID] = useState('');
+  const [campaignTitle, setCampaignTitle] = useState('');
   const [inputAmount, setInputAmount] = useState('');
-  const [amount, setAmount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [donationSuccess, setDonationSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const publicKey = 'pk_test_2b74aab00574728a1603061034868a0e8aac3d72';
+  const publicKey = 'pk_live_b01a5bb44875ca3408b33ddea487b5542bde749f';
   const email = 'helpmeet52@gmail.com';
 
   const handleCampaignChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setCampaign(event.target.value);
+    setCampaignID(event.target.value);
   };
 
   const handleAmountInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,34 +72,19 @@ const DonationSection = ({campaignList}: Props) => {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   
-    // Trim input amount
-    const trimmedInputAmount = inputAmount.trim();
-  
+    
     // Check if campaign and input amount are provided
-    if (!campaign) {
+    if (!campaignID) {
       setErrorMessage('Please select a campaign!');
       return;
     }
-  
-    if (!trimmedInputAmount) {
-      setErrorMessage('Please enter a donation amount!');
-      return;
-    }
-  
-    // Parse input amount to float
-    const parsedInputAmount = parseFloat(trimmedInputAmount);
-  
-    // Check if parsed input amount is valid
-    if (isNaN(parsedInputAmount) || parsedInputAmount <= 0) {
-      setErrorMessage('Please enter a valid donation amount!');
-      return;
-    }
-  
+    
     // Set loading state
     setLoading(true);
   
     // Find selected campaign
-    const selectedCampaign = campaignList.find(campaignItem => campaignItem._id === campaign);
+    const selectedCampaign = campaignList.find(campaignItem => campaignItem._id === campaignID);
+    setCampaignTitle(selectedCampaign?.title || '')
   
     // Check if selected campaign exists
     if (!selectedCampaign) {
@@ -106,39 +93,33 @@ const DonationSection = ({campaignList}: Props) => {
       return;
     }
   
-    // Construct data object with campaign ID, title, email, and amount
-    const formData = {
-      campaign: {
-        id: campaign,
-        title: selectedCampaign.title
-      },
-      email,
-      amount: parsedInputAmount * 100 // Convert to kobo (lowest currency denomination in Nigeria)
-    };
   
     // Simulate asynchronous operation
     setTimeout(() => {
       setShowPopup(true);
-      console.log('Form submitted with data:', formData);
+      console.log('Form submitted with data:', campaignID,campaignTitle,parseFloat(inputAmount.trim()));
       setLoading(false);
     }, 1500);
   };
   
   
-  const PaymentSuccess = () => {
-
+  const PaymentSuccess = async () => {
+    setLoading(true);
+    await updateCampaign(campaignID, parseFloat(inputAmount.trim()))
+    setLoading(false);
     setDonationSuccess(true)
     setShowPopup(false)
   }
+ 
 
   const PaymentProps = {
     email,
-    amount,
+    amount:parseFloat(inputAmount.trim())*100,
     publicKey,
-    text: "Confirm Payment",
-    onSuccess: PaymentSuccess,
-    onClose: () => alert("Wait! Your Donation is neeeded, don't go!!!!"),
-  };
+    text: "Donate Now",
+    onSuccess: () => {PaymentSuccess()},
+    onClose: () => alert("Wait! Your donation is needed, don't go!!!!"),
+  }
 
   return (
     <>
@@ -147,7 +128,7 @@ const DonationSection = ({campaignList}: Props) => {
           <h3 className='text-lg font-bold text-center'>Thank you for Considering Joining Us in Helping the Needy!</h3>
           <div className='py-12 md:flex gap-5 lg:gap-10 md:px-5'>
             <div className='w-1/2 my-2 hidden md:block'>
-              <Image src='/6.webp' width={500} height={500} alt='' className='h-[80%]  lg:h-full w-full rounded-2xl opacity-80' />
+              <Image src='/6.webp' width={500} height={500} alt='' className='h-[80%]  lg:h-full w-full rounded-2xl opacity-80 object-contain' />
             </div>
             <div className='md:w-1/2'>
               <div className="text-red-500 italic">{errorMessage}</div>
@@ -169,8 +150,8 @@ const DonationSection = ({campaignList}: Props) => {
                     )}
                   </div><br />
                   <div className='flex items-center bg-[#1ECA8C] rounded-lg'>
-                    <span className='font-bold text-white p-3 text-2xl'>&#8358;</span>
-                    <input type="number" name="donation-amount" id="DonAmt" className='w-full border border-orange-400 rounded-lg p-3 text-gray-700 text-2xl placeholder:text-lg' min={0} defaultValue={inputAmount} placeholder='Enter Donation Amount' onChange={handleAmountInputChange} required/>
+                    <span className='font-bold text-white p-3 text-xl'>&#8358;</span>
+                    <input type="number" name="donation-amount" id="DonAmt" className='w-full border border-orange-400 rounded-lg p-3 text-gray-700 text-xl placeholder:text-lg' min={0} defaultValue={inputAmount} placeholder='Enter Donation Amount' onChange={handleAmountInputChange} required/>
                   </div>
                 </div>         
                 <div className='flex justify-center pt-10'>
@@ -192,14 +173,18 @@ const DonationSection = ({campaignList}: Props) => {
           <div className="bg-white p-10 border rounded-xl text-center relative">
             <X className='absolute top-0 right-2 pt-2' onClick={()=>setShowPopup(false)}/>
             <h2 className='font-semibold text-md'>Confirm Donation Details:</h2>
-            <div className='py-5'>
-              <p className='text-center text-xl leading-8'>
-                You are about to donate <br/> <span className='text-orange-400 font-semibold'>&#8358; {`${(parseInt(inputAmount)).toLocaleString()}.00`}</span> <br/> to <br/><span className='text-[#1ECA8C] italic font-semibold'>{campaign}.</span>
-              </p>
-            </div>
-            <div>
-              <PaystackButton {...PaymentProps} className='bg-[#1ECA8C] font-bold rounded-md p-3 px-5 text-sm text-white hover:shadow-lg hover:shadow-orange-400 border border-orange-400'/>
-            </div>
+              <div className='py-5'>
+                <p className='text-center text-xl leading-8'>
+                  You are about to donate <br/> <span className='text-orange-400 font-semibold'>&#8358; {`${(parseInt(inputAmount)).toLocaleString()}.00`}</span> <br/> to <br/><span className='text-[#1ECA8C] italic font-semibold'>{campaignTitle}.</span>
+                </p>
+              </div>
+              <div>
+              {loading ? (
+                  <button className='bg-[#1ECA8C] font-bold rounded-md p-3 px-5 text-sm text-white border border-orange-400' disabled>Processing...</button>
+                ) : (
+                  <PaystackButton {...PaymentProps} className='bg-[#1ECA8C] font-bold rounded-md p-3 px-5 text-sm text-white hover:shadow-lg hover:shadow-orange-400 border border-orange-400'/>
+                )}
+              </div>
           </div>
         </div>
       </section>             
@@ -218,6 +203,9 @@ const DonationSection = ({campaignList}: Props) => {
                   <span className=' uppercase text-xs'>Your donation was successful!</span>
                 </p>
               </div>
+              <Link href={'/campaigns'}>
+                <button className='bg-[#1ECA8C] font-bold rounded-md p-2 px-3 text-sm text-white'>See Campaigns</button>
+              </Link>
             </div>
           </div>
         </div>
