@@ -31,11 +31,11 @@ export const navLinks = [
   },
   {
     name: 'Join Volunteers',
-    url: ''
+    url: 'https://forms.gle/YhKCy6Drz2N5aFka7'
   },
   {
     name: 'Request Aid',
-    url: ''
+    url: 'https://forms.gle/ef2RcFEyB3skTStS8'
   },
   {
     name: 'Contact Us',
